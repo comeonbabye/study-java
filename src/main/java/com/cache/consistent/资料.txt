@@ -1,0 +1,6 @@
+﻿http://www.iteye.com/topic/611976			主题：总结一致性哈希(Consistent Hashing)
+http://langyu.iteye.com/blog/684087		Ketama一致性Hash算法(含Java代码)
+http://flychao88.iteye.com/blog/1540246			一致性HASH算法的JAVA实现-----太粗糙
+http://www.cnblogs.com/weiwelcome0/p/ConsistentHash.html		一致性hash算法(JAVA)---------挺不错
+http://my-corner.iteye.com/blog/1683262			一致性哈希consistent Hash的Java实现
+http://blog.sina.com.cn/s/blog_6ac4c6cb010149m6.html		java中equals，hashcode和==的区别

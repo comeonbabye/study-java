@@ -1,0 +1,6 @@
+1. Timer实例化的时候会启动内部的TimerThread并设置为守护线程运行
+2. TimerTask是一个实现了Runnable接口的抽象类
+3. TimeQueue默认存储了128个TimerTask，满了会扩容成2倍，addTask后，会调用fixUp方法方法判断新加入的任务是否需要先执行，如果是则移动到数组前面
+4. TimerThread继承Thread，TimerThread构造函数需要一个TimeQueue，TimerThread有一个MainLoop方法会调用TimerTask的run方法，所以TimerTask的run方法不能执行太久时间，否则会堵塞其他任务
+	如果queue队列为空，MainLoop方法会一直等待，如果某些任务只需要执行一次，那么执行完后会把任务删除，如果需要重复调度，则会修改调度时间，如果任务还没有到执行时间，则会休眠一定时间后醒来
+	重要：如果timer会创建一个对象来重写finalize方法，在垃圾回收timer实例的时候修改timeThread的开关，和唤醒timeQueue队列，让他们优雅的执行完毕，不再loop。
