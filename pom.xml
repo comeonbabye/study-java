@@ -85,7 +85,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.6</version>
 		</dependency>
-		
+		 
 		<!-- common start -->
 		<dependency>
 			<groupId>com.study</groupId>
@@ -94,7 +94,7 @@
 			<type>pom</type>
 		</dependency>
 		<!-- common end -->
-
+ 
 		<!-- log start -->
 		<dependency>
 			<groupId>log4j</groupId>
