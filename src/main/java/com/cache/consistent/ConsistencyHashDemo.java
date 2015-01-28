@@ -16,7 +16,7 @@ import java.util.TreeMap;
  * @author tony
  *
  */
-public class ConsistencyHash1 {
+public class ConsistencyHashDemo {
 
 	private TreeMap<Long, Object> nodes = null;
 
@@ -112,7 +112,7 @@ public class ConsistencyHash1 {
 		Map<String, Integer> count = new HashMap<String, Integer>();
 
 		Random ran = new Random();
-		ConsistencyHash1 hash = new ConsistencyHash1();
+		ConsistencyHashDemo hash = new ConsistencyHashDemo();
 		hash.init();
 		hash.printMap();
 		//循环50次，是为了取50个数来测试效果，当然也可以用其他任何的数据来测试  

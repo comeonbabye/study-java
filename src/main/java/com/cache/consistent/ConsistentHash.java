@@ -13,13 +13,21 @@ import java.util.Map.Entry;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+/**
+ * 
+ * 创建日期:2015-1-28
+ * Title: 节点越少，增加的虚拟节点越多，才能达到一致性
+ * 
+ * @author tony.he
+ * @version 1.0
+ * @param <T>
+ */
 public class ConsistentHash<T> {
 	private final HashFunction hashFunction;
 	private final int numberOfReplicas;
 	private final SortedMap<Integer, T> circle = new TreeMap<Integer, T>();
 
-	public ConsistentHash(HashFunction hashFunction, int numberOfReplicas,
-			Collection<T> nodes) {
+	public ConsistentHash(HashFunction hashFunction, int numberOfReplicas, Collection<T> nodes) {
 		this.hashFunction = hashFunction;
 		this.numberOfReplicas = numberOfReplicas;
 
@@ -45,27 +53,26 @@ public class ConsistentHash<T> {
 			return null;
 		}
 		int hash = hashFunction.hash(key);
-		// System.out.println("hash---: " + hash);  
+		// System.out.println("hash---: " + hash);
 		if (!circle.containsKey(hash)) {
 			SortedMap<Integer, T> tailMap = circle.tailMap(hash);
 			hash = tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
 		}
-		// System.out.println("hash---: " + hash);  
+		// System.out.println("hash---: " + hash);
 		return circle.get(hash);
 	}
 
 	static class HashFunction {
 		int hash(Object key) {
-			//md5加密后，hashcode
-			//return Md5Encrypt.md5(key.toString()).hashCode();
+			// md5加密后，hashcode
+			// return Md5Encrypt.md5(key.toString()).hashCode();
 			return DigestUtils.md5Hex(key.toString()).hashCode();
 		}
 
-		/** 
-		 * Get the md5 of the given key. 
-		 * 计算MD5值 
+		/**
+		 * Get the md5 of the given key. 计算MD5值
 		 */
-		public byte[] computeMd5(String k) {
+		byte[] computeMD5(String k) {
 			MessageDigest md5;
 			try {
 				md5 = MessageDigest.getInstance("MD5");
@@ -94,7 +101,7 @@ public class ConsistentHash<T> {
 
 		Map<String, Integer> map = new HashMap<String, Integer>();
 
-		ConsistentHash<String> consistentHash = new ConsistentHash<String>(new HashFunction(), 1000, set);
+		ConsistentHash<String> consistentHash = new ConsistentHash<String>(new HashFunction(), 500, set);
 
 		int count = 200000;
 
@@ -105,64 +112,64 @@ public class ConsistentHash<T> {
 			} else {
 				map.put(consistentHash.get(i), 1);
 			}
+			// System.out.println(key);
+		}
+
+		showServer(map);
+
+		map.clear();
+		consistentHash.remove("A");
+
+		System.out.println("------- remove A");
+
+		for (int i = 0; i < count; i++) {
+			String key = consistentHash.get(i);
+			if (map.containsKey(key)) {
+				map.put(consistentHash.get(i), map.get(key) + 1);
+			} else {
+				map.put(consistentHash.get(i), 1);
+			} 
 			//System.out.println(key);
 		}
 
 		showServer(map);
-		/*map.clear();  
-		consistentHash.remove( "A" );  
 
-		System. out .println("------- remove A" );  
+		map.clear();
+		consistentHash.add("E");
+		System.out.println("------- add E");
 
-		 for (int i = 0; i < count; i++) {  
-		       String key = consistentHash.get(i);  
-		       if (map.containsKey(key)) {  
-		            map.put(consistentHash.get(i), map.get(key) + 1);  
-		      } else {  
-		            map.put(consistentHash.get(i), 1);  
-		      }  
-		       // System.out.println(key);  
-		}  
+		for (int i = 0; i < count; i++) {
+			String key = consistentHash.get(i);
+			if (map.containsKey(key)) {
+				map.put(consistentHash.get(i), map.get(key) + 1);
+			} else {
+				map.put(consistentHash.get(i), 1);
+			} 
+			//System.out.println(key);
+		}
+		showServer(map);
+		
+		map.clear();
+		consistentHash.add("F");
+		System.out.println("------- add F服务器业务量加倍");
+		count = count * 2;
+		for (int i = 0; i < count; i++) {
+			String key = consistentHash.get(i);
+			if (map.containsKey(key)) {
+				map.put(consistentHash.get(i), map.get(key) + 1);
+			} else {
+				map.put(consistentHash.get(i), 1);
+			}
+			// System.out.println(key);
+		}
 
-		 showServer(map);  
-		map.clear();  
-		consistentHash.add( "E" );  
-		System. out .println("------- add E" );  
-
-		 for (int i = 0; i < count; i++) {  
-		       String key = consistentHash.get(i);  
-		       if (map.containsKey(key)) {  
-		            map.put(consistentHash.get(i), map.get(key) + 1);  
-		      } else {  
-		            map.put(consistentHash.get(i), 1);  
-		      }  
-		       // System.out.println(key);  
-		}  
-
-		 showServer(map);  
-		map.clear();  
-
-		consistentHash.add( "F" );  
-		System. out .println("------- add F服务器  业务量加倍" );  
-		count = count * 2;  
-		 for (int i = 0; i < count; i++) {  
-		      String key = consistentHash.get(i);  
-		       if (map.containsKey(key)) {  
-		            map.put(consistentHash.get(i), map.get(key) + 1);  
-		      } else {  
-		            map.put(consistentHash.get(i), 1);  
-		      }  
-		       // System.out.println(key);  
-		}  
-
-		 showServer(map);  */
+		showServer(map);
 
 	}
 
 	public static void showServer(Map<String, Integer> map) {
 		for (Entry<String, Integer> m : map.entrySet()) {
-			System.out.println("服务器 " + m.getKey() + "----" + m.getValue()
-					+ "个");
+			System.out.println("服务器 " + m.getKey() + "----" + m.getValue() + "个");
 		}
 	}
 }

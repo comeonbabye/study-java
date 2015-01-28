@@ -1,0 +1,10 @@
+2015-01-28 16:31:44,790 [main] INFO  com.sort.SortContext 32 - sort elapsed time:890
+2015-01-28 16:31:45,212 [main] INFO  com.sort.SortContext 32 - sort elapsed time:407
+2015-01-28 16:31:45,462 [main] INFO  com.sort.SortContext 32 - sort elapsed time:250
+2015-01-28 16:31:45,462 [main] INFO  com.sort.SortContext 32 - sort elapsed time:0
+2015-01-28 16:42:52,555 [main] INFO  com.cache.LRU.LRUCache 129 - get key:one, value:one
+2015-01-28 16:42:52,555 [main] INFO  com.cache.LRU.LRUCache 145 - get key:five, value:null
+2015-01-28 16:42:52,555 [main] INFO  com.cache.LRU.LRUCache 108 - ===============cache infor==================
+2015-01-28 16:42:52,555 [main] INFO  com.cache.LRU.LRUCache 112 - key:four, value:four
+2015-01-28 16:42:52,555 [main] INFO  com.cache.LRU.LRUCache 112 - key:three, value:three
+2015-01-28 16:42:52,555 [main] INFO  com.cache.LRU.LRUCache 112 - key:two, value:two
