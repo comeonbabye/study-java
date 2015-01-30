@@ -1,0 +1,47 @@
+Memcache：
+http://code.google.com/p/spymemcached/	spymemcached
+http://code.google.com/p/xmemcached/		xmemcached
+https://github.com/gwhalin/Memcached-Java-Client/downloads	gwhalin/Memcached-Java-Client
+http://blog.csdn.net/arui_email/article/details/8129487		Memcache工作原理及其例子 
+http://blog.csdn.net/arui_email/article/details/8129400	Memcached 	客户端程序三种API的比较 
+http://www.cnblogs.com/jeffwongishandsome/archive/2011/11/06/2238265.html		Memcached常用命令及使用说明
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
